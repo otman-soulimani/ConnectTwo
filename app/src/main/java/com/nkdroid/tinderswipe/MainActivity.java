@@ -1,6 +1,7 @@
 package com.nkdroid.tinderswipe;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -82,8 +83,18 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             public void onScroll(float scrollProgressPercent) {
 
                 View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+                TextView q1 = (TextView) view.findViewById(R.id.questionOne);
+                TextView q2 = (TextView) view.findViewById(R.id.questionTwo);
+                if (scrollProgressPercent < 0) {
+                    q1.setTextColor(Color.BLUE);
+                    q2.setTextColor(Color.BLACK);
+                } else if (scrollProgressPercent > 0) {
+                    q1.setTextColor(Color.BLACK);
+                    q2.setTextColor(Color.RED);
+                } else {
+                    q1.setTextColor(Color.BLACK);
+                    q2.setTextColor(Color.BLACK);
+                }
             }
         });
 
