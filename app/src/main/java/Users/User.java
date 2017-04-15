@@ -19,11 +19,11 @@ public class User {
         return name;
     }
 
-    public int getQUestion(){
+    public int getQuestion(){
         return questionID;
     }
 
-    public int answer(){
+    public int getAnswer(){
         return answer;
     }
 
