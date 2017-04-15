@@ -17,7 +17,5 @@ public class Questions {
         return option1;
     }
 
-    public String getOption2() {
-        return option2;
-    }
+    public String getOption2() { return option2; }
 }

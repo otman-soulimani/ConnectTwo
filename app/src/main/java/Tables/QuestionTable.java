@@ -8,8 +8,8 @@ import android.provider.BaseColumns;
 
 public class QuestionTable implements BaseColumns{
     public static final String TABLE_NAME = "Questions";
-    public static final String OPTION1 = "answer";
-    public static final String OPTION2 = "User Responses";
+    public static final String OPTION1 = "option1";
+    public static final String OPTION2 = "option2";
 
     public static final String CREATE_QUERY = "create table " + TABLE_NAME + " (" +
             _ID + " INTEGER, " +
