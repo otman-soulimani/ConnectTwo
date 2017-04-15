@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
 */
-        myAppAdapter = new MyAppAdapter(al, MainActivity.this);
+        myAppAdapter = new MyAppAdapter(qdh.getArrayList(), MainActivity.this);
         flingContainer.setAdapter(myAppAdapter);
 
 
