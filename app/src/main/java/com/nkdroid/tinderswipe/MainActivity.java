@@ -1,6 +1,7 @@
 package com.nkdroid.tinderswipe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button btn = (Button) findViewById(R.id.addButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddQuestion.class));
+            }
+        });
        // ListView questionsList = (ListView) findViewById(R.id.questions_list);
 
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
@@ -58,15 +67,16 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         String[] from = new String[] {QuestionTable.OPTION1, QuestionTable.OPTION2};
         int[] to = new int[] {R.id.questionOne, R.id.questionTwo};
 
-        al = qdh.getArrayList();
+        al = new ArrayList<>();
+//        al.addAll(qdh.getArrayList());
 
-       /* al.add(new Data(QuestionTable.OPTION1, QuestionTable.OPTION2));
+        //al.add(new Data(QuestionTable.OPTION1, QuestionTable.OPTION2));
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
         al.add(new Data("Run 20 miles naked", "Lose $2000"));
-*/
-        myAppAdapter = new MyAppAdapter(qdh.getArrayList(), MainActivity.this);
+
+        myAppAdapter = new MyAppAdapter(al, MainActivity.this);
         flingContainer.setAdapter(myAppAdapter);
 
 

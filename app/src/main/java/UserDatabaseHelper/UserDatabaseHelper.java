@@ -18,7 +18,7 @@ import Tables.UserTable;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper{
     public UserDatabaseHelper(Context context) {
-        super(context, "name", null, 0);
+        super(context, "name", null, 1);
     }
 
     @Override

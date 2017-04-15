@@ -19,7 +19,7 @@ import Tables.QuestionTable;
 
 public class QuestionDatabaseHelper extends SQLiteOpenHelper{
     public QuestionDatabaseHelper(Context context) {
-        super(context, "Question", null, 0);
+        super(context, "Question", null, 1);
     }
 
     @Override
