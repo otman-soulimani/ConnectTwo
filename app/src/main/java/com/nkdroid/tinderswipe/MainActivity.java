@@ -11,6 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.Activity;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.database.Cursor;
 
 import com.bumptech.glide.Glide;
 import com.nkdroid.tinderswipe.tindercard.FlingCardListener;
@@ -18,6 +22,14 @@ import com.nkdroid.tinderswipe.tindercard.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import UserDatabaseHelper.QuestionDatabaseHelper;
+import UserDatabaseHelper.UserDatabaseHelper;
+import Tables.UserTable;
+import Tables.QuestionTable;
 
 
 public class MainActivity extends AppCompatActivity implements FlingCardListener.ActionDownInterface {
@@ -36,16 +48,23 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // ListView questionsList = (ListView) findViewById(R.id.questions_list);
 
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
-        al = new ArrayList<>();
-        al.add(new Data("Run 10 miles naked", "Lose $1000"));
-        al.add(new Data("Run 20 miles naked", "Lose $2000"));
-        al.add(new Data("Run 20 miles naked", "Lose $2000"));
-        al.add(new Data("Run 20 miles naked", "Lose $2000"));
-        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        UserDatabaseHelper udh = new UserDatabaseHelper(this);
+        QuestionDatabaseHelper qdh = new QuestionDatabaseHelper(this);
+        String[] from = new String[] {QuestionTable.OPTION1, QuestionTable.OPTION2};
+        int[] to = new int[] {R.id.questionOne, R.id.questionTwo};
 
+        al = qdh.getArrayList();
+
+       /* al.add(new Data(QuestionTable.OPTION1, QuestionTable.OPTION2));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+*/
         myAppAdapter = new MyAppAdapter(al, MainActivity.this);
         flingContainer.setAdapter(myAppAdapter);
 
@@ -161,5 +180,7 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
 
             return rowView;
         }
+
+
     }
 }

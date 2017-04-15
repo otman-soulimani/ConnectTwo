@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.Arrays.asList;
 
@@ -52,4 +53,42 @@ public class QuestionDatabaseHelper extends SQLiteOpenHelper{
     public Cursor getQuestionCursor() {
         return this.getWritableDatabase().rawQuery(QuestionTable.SElECT_QUERY, null);
     }
+
+    public ArrayList getArrayList() {
+        ArrayList<String> questList = null;
+
+        Cursor cursor = null;
+        try {
+            cursor = this.getWritableDatabase().rawQuery(QuestionTable.SElECT_QUERY, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                questList = new ArrayList<String>();
+                do {
+                    questList.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            questList = null;
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.deactivate();
+                cursor.close();
+                cursor = null;
+            }
+            close();
+        }
+        return questList;
+    }
+
+    public void close(SQLiteDatabase sqLiteDatabase) {
+        try {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) {
+                sqLiteDatabase.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
