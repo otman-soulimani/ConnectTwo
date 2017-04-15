@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
     private SwipeFlingAdapterView flingContainer;
 
     public static void removeBackground() {
-
-
         viewHolder.background.setVisibility(View.GONE);
         myAppAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -43,14 +40,16 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         al = new ArrayList<>();
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
+        al.add(new Data("Run 10 miles naked", "Lose $1000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
+        al.add(new Data("Run 20 miles naked", "Lose $2000"));
 
         myAppAdapter = new MyAppAdapter(al, MainActivity.this);
         flingContainer.setAdapter(myAppAdapter);
+
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             public void onScroll(float scrollProgressPercent) {
 
                 View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.background).setAlpha(0);
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
                 view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
@@ -96,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
             public void onItemClicked(int itemPosition, Object dataObject) {
 
                 View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.background).setAlpha(0);
 
                 myAppAdapter.notifyDataSetChanged();
             }
@@ -111,14 +108,12 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
 
     public static class ViewHolder {
         public static FrameLayout background;
-        public TextView DataText;
-        public ImageView cardImage;
-
-
+        public TextView qOne;
+        public TextView qTwo;
     }
 
+    //in charge of changing the view
     public class MyAppAdapter extends BaseAdapter {
-
 
         public List<Data> parkingList;
         public Context context;
@@ -148,24 +143,21 @@ public class MainActivity extends AppCompatActivity implements FlingCardListener
 
             View rowView = convertView;
 
-
             if (rowView == null) {
 
                 LayoutInflater inflater = getLayoutInflater();
                 rowView = inflater.inflate(R.layout.item, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
-                viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
-                viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
+                viewHolder.qOne = (TextView) rowView.findViewById(R.id.questionOne);
+                viewHolder.qTwo = (TextView) rowView.findViewById(R.id.questionTwo);
                 rowView.setTag(viewHolder);
 
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
-
-            Glide.with(MainActivity.this).load(parkingList.get(position).getImagePath()).into(viewHolder.cardImage);
+            viewHolder.qOne.setText(parkingList.get(position).getQuestionOne() + "");
+            viewHolder.qTwo.setText(parkingList.get(position).getQuestionTwo() + "");
 
             return rowView;
         }

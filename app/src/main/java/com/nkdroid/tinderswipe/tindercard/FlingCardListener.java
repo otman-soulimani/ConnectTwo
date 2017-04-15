@@ -79,7 +79,7 @@ public class FlingCardListener implements View.OnTouchListener {
 
                 // from http://android-developers.blogspot.com/2010/06/making-sense-of-multitouch.html
                 // Save the ID of this pointer
-                MainActivity.removeBackground();
+                //MainActivity.removeBackground();
 
 
                 mActivePointerId = event.getPointerId(0);
